@@ -1,0 +1,162 @@
+{
+	"vlan template": {
+		"prefix": "vlan",
+		"body": [
+			"vlan ${1:number}",
+			" name ${2:name}",
+			"$0"
+		],
+		"description": "vlan template"
+	},
+
+	"loopback template": {
+		"prefix": "interface",
+		"body": [
+			"interface Loopback ${1:number}",
+			" description ${2:description}",
+			" ip address ${3:address} ${4:mask}",
+			"$0"
+		],
+		"description": "loopback template"
+	},
+
+	"svi template": {
+		"prefix": "interface",
+		"body": [
+			"interface Vlan ${1:number}",
+			" description ${2:description}",
+			" ip address ${3:address} ${4:mask}",
+			"$0"
+		],
+		"description": "vlan template"
+	},
+
+	"trunk port template": {
+		"prefix": "interface",
+		"body": [
+			"interface ${1|GigabitEthernet,TenGigabitEthernet,TwentyFiveGigE,HundredGigE,Port-channel|} ${2:number}",
+			" description ${3:description}",
+			" switchport mode trunk",
+			" switchport trunk allowed vlan ${4:number}",
+			"$0"
+		],
+		"description": "trunk port template"
+	},
+
+	"access port template": {
+		"prefix": "interface",
+		"body": [
+			"interface ${1|GigabitEthernet,TenGigabitEthernet,TwentyFiveGigE,HundredGigE,Port-channel|} ${2:number}",
+			" description ${3:description}",
+			" switchport mode access",
+			" switchport access vlan ${4:number}",
+			"$0"
+		],
+		"description": "access port template"
+	},
+
+	"ospf template": {
+		"prefix": "router",
+		"body": [
+			"router ospf ${1:id}",
+			" router-id ${2:ip}",
+			" area 0.0.0.0 authentication message-digest",
+			" network 0.0.0.0 255.255.255.255 area 0.0.0.0",
+			" passive-interface default",
+			" no passive-interface ${3|GigabitEthernet,TenGigabitEthernet,TwentyFiveGigE,HundredGigE,Port-channel,Vlan|} ${4:number}",
+			"$0"
+		],
+		"description": "ospf template"
+	},
+
+	"bgp template": {
+		"prefix": "router",
+		"body": [
+			"router bgp ${1:asn}",
+			" bgp router-id ${2:ip}",
+			" bgp log-neighbor-changes",
+			" neighbor ${3:ip} remote-as ${4:asn}",
+			" neighbor ${3:ip} description ${5:description}",
+			" !",
+			" address-family ipv4",
+			" neighbor ${3:ip} activate",
+			"$0"
+		],
+		"description": "bgp template"
+	},
+
+	"as path autocomplete": {
+		"prefix": "ip",
+		"body": [
+			"ip as-path access-list ${1:number} ${2|permit,deny|} ${3:path}",
+			"$0"
+		],
+		"description": "as path autocomplete"
+	},
+
+	"vrf template": {
+		"prefix": "ip",
+		"body": [
+			"ip vrf ${1:name}",
+			" description ${2:description}",
+			" rd ${3:number}:${4:number}",
+			"$0"
+		],
+		"description": "vrf template"
+	},
+
+	"prefix list autocomplete": {
+		"prefix": "ip",
+		"body": [
+			"ip prefix-list ${1:name} seq ${2:number} ${3|permit,deny|} ${4:prefix}",
+			"$0"
+		],
+		"description": "prefix list autocomplete"
+	},
+
+	"route map template": {
+		"prefix": "route-map",
+		"body": [
+			"route-map ${1:name} ${2|permit,deny|} ${4:number}",
+			" description ${5:description}",
+			" match ${6|ip,as-path,community|} $0"
+		],
+		"description": "route map template"
+	},
+
+	"address family autocomplete": {
+		"prefix": "address-family",
+		"body": [
+			"address-family ${1|ipv4,ipv6,l2vpn,nsap,rtfilter,vpnv4,vpnv6} $0"
+		],
+		"description": "address family autocomplete"
+	},
+
+	"neighbor autocomplete": {
+		"prefix": "neighbor",
+		"body": [
+			"neighbor ${1:address,tag,ipv6 address} ${2|activate,description,remote-as,local-as,next-hop-self,password,route-map,peer-group,route-reflector-client,shutdown,soft-reconfiguration,timers,update-source,version|} $0"
+		],
+		"description": "neighbor autocomplete"
+	},
+
+	"bgp network autocomplete": {
+		"prefix": "network",
+		"body": [
+			"network ${1:address} mask ${2:mask} $0"
+		],
+		"description": "bgp network autocomplete"
+	},
+
+	"routed template": {
+		"prefix": "interface",
+		"body": [
+			"interface ${1|GigabitEthernet,TenGigabitEthernet,TwentyFiveGigE,HundredGigE,Port-channel|} ${2:number}",
+			" description ${3:description}",
+			" ip address ${4:number}",
+			"$0"
+		],
+		"description": "routed template"
+	}
+
+}

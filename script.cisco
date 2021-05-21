@@ -1,0 +1,34 @@
+! Sample generic cisco script to highlight the cisco language support
+
+hostname router1
+ip domain name lab.local
+ip bgp-community new-format
+!
+interface Loopback0
+ description device loopbacl
+ ip address 192.168.0.1
+!
+interface Gi0/0/0
+ description lan
+ ip address 192.168.1.1 255.255.255.0
+!
+router ospf 1
+ router-id 192.168.0.1
+ passive-interface default
+ no passive-interface Gi0/0/0
+ network 0.0.0.0 0.0.0.0 area 0.0.0.0
+!
+ip prefix-list my_prefixlist description sample prefix list
+ip prefix-list my_prefixlist seq 5 permit 0.0.0.0/0 le 32
+!
+route-map my_routemap permit 10
+ description sample route-map
+ match ip address prefix-list my_prefixlist
+!
+router bgp 100
+ bgp router-id 192.168.0.1
+ neighbor 192.168.0.2 remote-as 200
+ !
+ address-family ipv4
+  neighbor 192.168.0.2 activate
+!
