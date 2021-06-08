@@ -2,7 +2,7 @@
 
 ## Safety moment and intro
 
-Discuss importance of testing of GFCI outlets. 
+Discuss importance of supervising children around water.
 
 The purpose is for everyone to follow along but to get through the agenda, please reserve most questions till the end or place them in the chat to answer after. 
 
